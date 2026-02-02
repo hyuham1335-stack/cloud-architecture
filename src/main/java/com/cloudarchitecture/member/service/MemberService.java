@@ -2,6 +2,7 @@ package com.cloudarchitecture.member.service;
 
 import com.cloudarchitecture.member.dto.request.CreateMemberRequest;
 import com.cloudarchitecture.member.dto.response.CreateMemberResponse;
+import com.cloudarchitecture.member.dto.response.GetOneMemberResponse;
 import com.cloudarchitecture.member.entity.Member;
 import com.cloudarchitecture.member.repository.MemberRepository;
 import lombok.Getter;
@@ -22,5 +23,14 @@ public class MemberService {
         memberRepository.save(member);
 
         return CreateMemberResponse.of(member);
+    }
+
+    @Transactional(readOnly = true)
+    public GetOneMemberResponse getOneMember(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(
+                () -> new IllegalStateException("존재하지 않는 멤버입니다.")
+        );
+
+        return GetOneMemberResponse.of(member);
     }
 }
