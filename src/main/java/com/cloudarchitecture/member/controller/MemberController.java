@@ -42,7 +42,7 @@ public class MemberController {
     }
 
     @GetMapping("/api/members/{memberId}/profile-image")
-    public ResponseEntity<ProfileImageDownloadUrlResponse> getProfileImageDownloadUrl(@RequestParam String key){
-        return ResponseEntity.status(HttpStatus.OK).body(memberService.getProfileImageDownloadUrl(key));
+    public ResponseEntity<ProfileImageDownloadUrlResponse> getProfileImageDownloadUrl(@RequestParam String key, @PathVariable Long memberId) {
+        return ResponseEntity.status(HttpStatus.OK).body(memberService.getProfileImageDownloadUrl(key, memberId));
     }
 }

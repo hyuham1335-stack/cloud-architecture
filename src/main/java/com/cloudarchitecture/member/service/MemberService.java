@@ -70,7 +70,12 @@ public class MemberService {
     }
 
     @Transactional
-    public ProfileImageDownloadUrlResponse getProfileImageDownloadUrl(String key) {
+    public ProfileImageDownloadUrlResponse getProfileImageDownloadUrl(String key, Long memberId) {
+
+        memberRepository.findById(memberId).orElseThrow(
+                () -> new MemberNotFoundException("존재하지 않는 멤버입니다.")
+        );
+
         URL PresignedUrl = s3Template.createSignedGetURL(bucket, key, PRESIGNED_URL_EXPIRATION);
 
         return new ProfileImageDownloadUrlResponse(PresignedUrl.toString());
