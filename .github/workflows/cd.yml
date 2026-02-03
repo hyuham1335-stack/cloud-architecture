@@ -99,8 +99,7 @@ jobs:
               "docker compose pull",
               "docker compose up -d",
 
-              "sleep 60",
-              "curl -fsS http://localhost:8080/actuator/health > /dev/null",
+              "for i in {1..40}; do if curl -fsS http://localhost:8080/actuator/health > /dev/null; then echo healthy; exit 0; fi; echo waiting... $i; sleep 3; done; echo health failed; docker logs --tail=300 cloud-app; exit 56",
 
               "docker image prune -f --filter \"until=168h\""
             ]
