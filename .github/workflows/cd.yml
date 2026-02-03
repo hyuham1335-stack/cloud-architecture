@@ -99,8 +99,8 @@ jobs:
               "docker compose pull",
               "docker compose up -d",
 
-              "sleep 30",
-              "curl -fsS http://43.203.218.202:8080/actuator/health > /dev/null",
+              "sleep 60",
+              "curl -fsS http://localhost:8080/actuator/health > /dev/null",
 
               "docker image prune -f --filter \"until=168h\""
             ]
